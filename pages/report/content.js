@@ -1,6 +1,5 @@
 import { CreateComponent } from "../../component/createcomponent.js";
 import { setState, state } from "../../component/state.js";
-
 import { numberFormat } from "../../component/widget.js";
 
 function TableInModal() {

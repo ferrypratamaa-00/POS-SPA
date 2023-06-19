@@ -7,10 +7,6 @@ let sessionUser = {
 
 sessionStorage.setItem("sessionUser", JSON.stringify(sessionUser));
 
-function reloadPage() {
-    location.reload(true);
-}
-
 function products(
     id,
     name,

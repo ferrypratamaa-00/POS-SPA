@@ -43,41 +43,43 @@ function TableInModal() {
         className: "",
     });
 
-    let listItemCartInTransaction = state.carts.filter((item) => {
-        return item.transaction_id == state.transactionid;
-    });
-
-    listItemCartInTransaction.forEach((data, index) => {
-        const trInTbody = CreateComponent("tr", {
-            className: "",
+    if (state.carts) {
+        let listItemCartInTransaction = state.carts.filter((item) => {
+            return item.transaction_id == state.transactionid;
         });
 
-        const tdNo = CreateComponent("td", {
-            className: "col",
-            textContent: index + 1,
-        });
-        const tdName = CreateComponent("td", {
-            className: "col",
-            textContent: data.product.name,
-        });
+        listItemCartInTransaction.forEach((data, index) => {
+            const trInTbody = CreateComponent("tr", {
+                className: "",
+            });
 
-        const tdQuantity = CreateComponent("td", {
-            className: "col",
-            textContent: data.quantity,
-        });
+            const tdNo = CreateComponent("td", {
+                className: "col",
+                textContent: index + 1,
+            });
+            const tdName = CreateComponent("td", {
+                className: "col",
+                textContent: data.product.name,
+            });
 
-        const tdTotal = CreateComponent("td", {
-            className: "col",
-        });
-        tdTotal.innerHTML = `<span class="fw-bold">Rp. ${numberFormat(
-            data.total
-        )}</span> <span class="small fst-italic">(${
-            data.quantity
-        } x Rp. ${numberFormat(data.product.price)})</span>`;
+            const tdQuantity = CreateComponent("td", {
+                className: "col",
+                textContent: data.quantity,
+            });
 
-        trInTbody.append(tdNo, tdName, tdQuantity, tdTotal);
-        tbody.append(trInTbody);
-    });
+            const tdTotal = CreateComponent("td", {
+                className: "col",
+            });
+            tdTotal.innerHTML = `<span class="fw-bold">Rp. ${numberFormat(
+                data.total
+            )}</span> <span class="small fst-italic">(${
+                data.quantity
+            } x Rp. ${numberFormat(data.product.price)})</span>`;
+
+            trInTbody.append(tdNo, tdName, tdQuantity, tdTotal);
+            tbody.append(trInTbody);
+        });
+    }
 
     tableBox.append(table);
 
@@ -189,75 +191,77 @@ function TableOfProduct() {
         className: "",
     });
 
-    state.transactions.forEach((transaction, index) => {
-        const trInTbody = CreateComponent("tr", {
-            className: "",
-        });
+    if (state.transactions) {
+        state.transactions.forEach((transaction, index) => {
+            const trInTbody = CreateComponent("tr", {
+                className: "",
+            });
 
-        const tdNo = CreateComponent("td", {
-            className: "col",
-            textContent: index + 1,
-        });
+            const tdNo = CreateComponent("td", {
+                className: "col",
+                textContent: index + 1,
+            });
 
-        const tdTransactionNumber = CreateComponent("td", {
-            className: "col text-success fw-bold fst-italic",
-            textContent: "#" + transaction.id,
-        });
+            const tdTransactionNumber = CreateComponent("td", {
+                className: "col text-success fw-bold fst-italic",
+                textContent: "#" + transaction.id,
+            });
 
-        const tdAdmin = CreateComponent("td", {
-            className: "col",
-            textContent: transaction.admin.name,
-        });
+            const tdAdmin = CreateComponent("td", {
+                className: "col",
+                textContent: transaction.admin.name,
+            });
 
-        const tdStatus = CreateComponent("td", {
-            className: "col",
-        });
-        tdStatus.innerHTML =
-            '<span class="badge bg-success rounded-pill px-2">transaction.status</span>';
+            const tdStatus = CreateComponent("td", {
+                className: "col",
+            });
+            tdStatus.innerHTML =
+                '<span class="badge bg-success rounded-pill px-2">transaction.status</span>';
 
-        const tdTotal = CreateComponent("td", {
-            className: "col fw-bold",
-            textContent: "Rp. " + numberFormat(transaction.total),
-        });
+            const tdTotal = CreateComponent("td", {
+                className: "col fw-bold",
+                textContent: "Rp. " + numberFormat(transaction.total),
+            });
 
-        const tdCreated = CreateComponent("td", {
-            className: "col",
-            textContent: transaction.timestamp,
-        });
+            const tdCreated = CreateComponent("td", {
+                className: "col",
+                textContent: transaction.timestamp,
+            });
 
-        const tdMenu = CreateComponent("td", {
-            className: "col",
-        });
+            const tdMenu = CreateComponent("td", {
+                className: "col",
+            });
 
-        const btnDetail = CreateComponent("button", {
-            className: "btn btn-warning btn-sm rounded-pill",
-            textContent: "Detail",
-        });
+            const btnDetail = CreateComponent("button", {
+                className: "btn btn-warning btn-sm rounded-pill",
+                textContent: "Detail",
+            });
 
-        btnDetail.addEventListener("click", () => {
-            setState({ transactionid: transaction.id });
-            var myModal = new bootstrap.Modal(
-                document.getElementById("Modaldetail"),
-                {
-                    keyboard: false,
-                }
+            btnDetail.addEventListener("click", () => {
+                setState({ transactionid: transaction.id });
+                var myModal = new bootstrap.Modal(
+                    document.getElementById("Modaldetail"),
+                    {
+                        keyboard: false,
+                    }
+                );
+                myModal.show();
+            });
+
+            tdMenu.append(btnDetail);
+
+            trInTbody.append(
+                tdNo,
+                tdTransactionNumber,
+                tdAdmin,
+                tdStatus,
+                tdTotal,
+                tdCreated,
+                tdMenu
             );
-            myModal.show();
+            tbody.append(trInTbody);
         });
-
-        tdMenu.append(btnDetail);
-
-        trInTbody.append(
-            tdNo,
-            tdTransactionNumber,
-            tdAdmin,
-            tdStatus,
-            tdTotal,
-            tdCreated,
-            tdMenu
-        );
-        tbody.append(trInTbody);
-    });
+    }
 
     tableBox.append(table);
 

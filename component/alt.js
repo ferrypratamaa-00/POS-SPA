@@ -118,6 +118,6 @@ const productssavelist = [
     product7,
 ];
 
-if (state.products.lenght <= 0) {
+if (!localStorage.getItem("products")) {
     saveProductsToLocalstorage(productssavelist);
 }

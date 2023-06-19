@@ -1,7 +1,5 @@
 import { CreateComponent } from "../../component/createcomponent.js";
 import { setState, state } from "../../component/state.js";
-import { link } from "../../component/link.js";
-import { removeProduct } from "../../component/processhandlers.js";
 import { numberFormat } from "../../component/widget.js";
 
 function TableInModal() {
